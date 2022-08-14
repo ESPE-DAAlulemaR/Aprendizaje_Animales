@@ -1,5 +1,3 @@
-<p align="center">#Instrucciones</p>
-
 # Instalaciones
 <p>1.- pip install virtualenv</p>
 <p>2.- cd Aprendizaje_Animales</p>
