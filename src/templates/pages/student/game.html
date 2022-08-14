@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>APRENDER LOS ANIMALES</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/style.css') }}">
+
+</head>
+
+<body>
+    <!-- partial:index.partial.html -->
+    <div class="app">
+        <h1>QUE ANIMAL ES</h1>
+        <div class="whole-body">🐄</div>
+        <div class="bingo">
+            Bingo!
+            <span class="again">Play Again</span>
+        </div>
+        <div class="selector">
+            <span class="slider"></span>
+
+            <span class="face">🐭</span>
+            <span class="face">🐶</span>
+            <span class="face">🐷</span>
+            <span class="face">🐮</span>
+            <span class="face">🐯</span>
+        </div>
+    </div>
+    <!-- partial -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js'></script>
+    <script src="{{ url_for('static', filename='assets/js/script.js') }}"></script>
+
+</body>
+
+</html>
