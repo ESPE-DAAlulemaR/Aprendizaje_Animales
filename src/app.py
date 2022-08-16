@@ -20,6 +20,7 @@ def not_found(error=None):
 from controllers.AuthController import *
 from controllers.HomeController import *
 from controllers.UserController import *
+from controllers.TeacherController import *
 from controllers.StudentController import *
 
 if __name__ == "__main__":

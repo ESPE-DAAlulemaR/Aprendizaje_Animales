@@ -15,3 +15,10 @@ def indexStudent():
         return render_template('pages/home/student/index.html')
     else:
         return redirect(url_for("login"))
+
+@app.route('/teacher', methods=['GET'])
+def indexTeacher():
+    if "user" in session:
+        return render_template('pages/home/teacher/index.html')
+    else:
+        return redirect(url_for("login"))
