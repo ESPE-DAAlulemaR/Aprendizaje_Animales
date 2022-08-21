@@ -2,3 +2,4 @@
 /src/resources
 /src/__pycache__
 /src/controllers/__pycache__
+/src/files/*

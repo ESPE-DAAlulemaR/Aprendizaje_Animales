@@ -4,7 +4,9 @@ from app import *
 @app.route('/users', methods=['GET'])
 def usersIndex():
     users = mongo.db.users.find()
-    return render_template('pages/users/index.html', users = users)
+    permissions = mongo.db.permissions.find()
+    roles = mongo.db.roles.find()
+    return render_template('pages/users/index.html', users = users, roles = roles, permissions = permissions)
 
 # Show user
 @app.route('/users/<id>', methods=['GET'])
@@ -21,6 +23,7 @@ def usersStore():
     username = request.form['username']
     email = request.form['email']
     password = request.form['password']
+    role = mongo.db.roles.find_one({'_id': ObjectId(request.form['role']), })
 
     if name and lastname and username and email and password:
         hashed_password = generate_password_hash(password)
@@ -29,7 +32,8 @@ def usersStore():
             'lastname': lastname,
             'username': username,
             'email': email,
-            'password': hashed_password
+            'password': hashed_password,
+            'role': role
         })
 
     return redirect(url_for("usersIndex"))
@@ -42,6 +46,7 @@ def usersUpdate(_id):
     username = request.form['username']
     email = request.form['email']
     password = request.form['password']
+    role = mongo.db.roles.find_one({'_id': ObjectId(request.form['role']), })
 
     if name and lastname and username and email and _id:
         if password:
@@ -56,7 +61,8 @@ def usersUpdate(_id):
                 'lastname': lastname,
                 'username': username,
                 'email': email,
-                'password': hashed_password
+                'password': hashed_password,
+                'role': role
             }
         })
     return redirect(url_for("usersIndex"))

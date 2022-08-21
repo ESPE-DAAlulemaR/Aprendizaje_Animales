@@ -19,7 +19,8 @@
 
 <!-- Navegation Page -->
 {% block page_navigation %}
-<li class="breadcrumb-item active">Usuarios</li>
+<li class="breadcrumb-item">Autorización</li>
+<li class="breadcrumb-item active">Roles</li>
 {% endblock %}
 
 <!-- Main Content -->
@@ -37,7 +38,7 @@
         {% endif %}
         <div class="row">
             <div class="col-12 d-flex my-3">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#user-modal" onclick="resetModal()">Agregar</button>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#role-modal" onclick="resetModal()">Agregar</button>
             </div>
             <div class="col-12">
                 <div class="card">
@@ -46,27 +47,21 @@
                         <table class="table table-hover text-nowrap">
                             <thead>
                                 <tr>
-                                    <th>Nombre</th>
-                                    <th>Apellido</th>
-                                    <th>Usuario</th>
-                                    <th>Email</th>
                                     <th>Rol</th>
+                                    <th>Alias</th>
                                     <th colspan="2">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for user in users %}
+                                {% for role in roles %}
                                 <tr>
-                                    <td>{{ user.name }}</td>
-                                    <td>{{ user.lastname }}</td>
-                                    <td>{{ user.username }}</td>
-                                    <td>{{ user.email }}</td>
-                                    <td>{{ user.role.alias }}</td>
+                                    <td>{{ role.role }}</td>
+                                    <td>{{ role.alias }}</td>
                                     <td>
-                                        <button class="btn btn-secondary btn-sm" onclick="getUser('{{ user._id }}')" data-toggle="modal" data-target="#user-modal">Editar</button>
+                                        <button class="btn btn-secondary btn-sm" onclick="getRole('{{ role._id }}')" data-toggle="modal" data-target="#role-modal">Editar</button>
                                     </td>
                                     <td>
-                                        <button class="btn btn-danger btn-sm" onclick="deleteUser('{{ user._id }}')" data-toggle="modal" data-target="#delete-modal">Eliminar</button>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteRole('{{ role._id }}')" data-toggle="modal" data-target="#delete-modal">Eliminar</button>
                                     </td>
                                 </tr>
                                 {% endfor %}
@@ -84,50 +79,45 @@
 {% endblock %}
 
 <!-- Create Modal -->
-{% include "pages/users/user-modal.html" %}
+{% include "pages/authorization/roles/role-modal.html" %}
 
 <!-- Delete Modal -->
-{% include "pages/users/delete-modal.html" %}
+{% include "pages/authorization/roles/delete-modal.html" %}
 
 <!-- Start Custom JS Block -->
 {% block js_page %}
 <!-- Start Page JS -->
 <script>
-    const userForm = $('#user-form');
-    const userFormDelete = $('#delete-form');
+    const roleForm = $('#role-form');
+    const roleFormDelete = $('#delete-form');
 
-    function getUser(id) {
-        userForm.attr('action', '/users/update/' + id);
-        $('#user-modal-header').attr('class', 'modal-header bg-secondary');
-        $.get('/users/' + id, function(data) {
-            $('#name').val(data.name);
-            $('#lastname').val(data.lastname);
-            $('#username').val(data.username);
-            $('#email').val(data.email);
-            $('input[name = role][value = "'+ data.role._id.$oid +'"]').prop('checked', true);
+    function getRole(id) {
+        roleForm.attr('action', '/roles/update/' + id);
+        $('#role-modal-header').attr('class', 'modal-header bg-secondary');
+        $.get('/roles/' + id, function(data) {
+            console.log(data);
+            $('#role').val(data.role);
+            $('#alias').val(data.alias);
         });
     }
 
-    function deleteUser(id) {
-        userFormDelete.attr('action', '/users/delete/' + id)
+    function deleteRole(id) {
+        roleFormDelete.attr('action', '/roles/delete/' + id)
     }
 
     function resetModal() {
-        $('#user-modal-header').attr('class', 'modal-header bg-primary');
-        $('#name').val(null);
-        $('#lastname').val(null);
-        $('#username').val(null);
-        $('#email').val(null);
+        resetFormAttributes();
+        $('#role-modal-header').attr('class', 'modal-header bg-primary');
         $('#role').val(null);
-        $('input[name=role]').prop('checked', false);
+        $('#alias').val(null);
     }
 
     function resetFormAttributes() {
-        userForm.attr('action', '/users');
+        roleForm.attr('action', '/roles');
     }
 
-    function resetUser() {
-        userFormDelete.attr('action', '#');
+    function resetRole() {
+        roleFormDelete.attr('action', '#');
     }
 </script>
 <script src=""></script>
