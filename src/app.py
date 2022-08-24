@@ -34,6 +34,9 @@ from controllers.RoleController import *
 from controllers.PermissionController import *
 from controllers.ClassroomController import *
 from controllers.MatterController import *
+from controllers.CalendarController import *
+from controllers.PeriodController import *
+from controllers.QualifyController import *
 
 if __name__ == "__main__":
     app.run(debug=True)

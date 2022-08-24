@@ -22,32 +22,18 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-6">
-                <div class="card card-primary card-outline">
-                    <div class="card-header">
-                        <h5 class="m-0">Inicial Paralelo A</h5>
-                    </div>
-                    <div class="card-body">
-                        <h6 class="card-title">Estudiantes:</h6>
-
-                        <p class="card-text">2</p>
-                        <a href="/teacher/parallel/1" class="btn btn-primary">Ver mas</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="card card-primary card-outline">
-                    <div class="card-header">
-                        <h5 class="m-0">Inicial Paralelo B</h5>
-                    </div>
-                    <div class="card-body">
-                        <h6 class="card-title">Estudiantes:</h6>
-
-                        <p class="card-text">2</p>
-                        <a href="/teacher/parallel/2" class="btn btn-primary">Ver mas</a>
+            {% for classroom in classrooms %}
+                <div class="col-lg-4">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h5 class="m-0">{{ classroom.classroom }} {{ classroom.parallel }}</h5>
+                        </div>
+                        <div class="card-body">
+                            <a href="/course/{{ classroom._id }}" class="btn btn-primary">Ver mas</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endfor %}
         </div>
         <!-- /.row -->
     </div>

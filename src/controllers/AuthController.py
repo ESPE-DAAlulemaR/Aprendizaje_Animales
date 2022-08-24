@@ -1,5 +1,6 @@
 from unicodedata import name
 from app import *
+import json
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -15,8 +16,7 @@ def login():
 
         if user:
             if check_password_hash(user['password'], password):
-                sessionUser = json_util.dumps(user)
-                session["user"] = sessionUser
+                session["user"] = json.loads(json_util.dumps(user))
                 return redirect(url_for('index'))
             else:
                 message = 'Contraseña incorrecta'
@@ -31,3 +31,26 @@ def logout():
         session.pop("user", None)
         return redirect(url_for('login'))
     return redirect(url_for('index'))
+
+@app.route('/login/student', methods=['GET'])
+def studentLogin():
+    if "student" in session:
+        return redirect(url_for("indexStudent"))
+    
+    students = mongo.db.students.find()
+    return render_template('pages/student/login.html', students = students)
+
+@app.route('/login/student/<id>', methods=['GET'])
+def studentSession(id):
+    if id:
+        session["student"] = id
+        return redirect(url_for('indexStudent'))
+    else:
+        return redirect(url_for('studentLogin'))
+
+@app.route('/logout/student', methods=['GET'])
+def studentLogout():
+    if "student" in session:
+        session.pop("student", None)
+        return redirect(url_for('studentLogin'))
+    return redirect(url_for('indexStudent'))

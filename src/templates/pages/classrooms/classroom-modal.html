@@ -23,7 +23,7 @@
                 </div>
                 <div class="form-group col-6">
                     <label for="capacity">Capacidad</label>
-                    <input type="number" class="form-control" name="capacity" id="capacity" min="15" max="20" required>
+                    <input type="number" class="form-control" name="capacity" id="capacity" min="1" max="10" required>
                 </div>
                 <div class="form-group col-6">
                     <label for="teacher">Docente Tutor</label>
@@ -31,6 +31,15 @@
                         <option selected>Seleccione...</option>
                         {% for teacher in teachers %}
                             <option value="{{ teacher._id }}">{{ teacher.name }} {{ teacher.lastname }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group col-6">
+                    <label for="calendar">Horario</label>
+                    <select class="custom-select" name="calendar" id="calendar">
+                        <option selected>Seleccione...</option>
+                        {% for calendar in calendars %}
+                            <option value="{{ calendar._id }}">{{ calendar.name }}</option>
                         {% endfor %}
                     </select>
                 </div>

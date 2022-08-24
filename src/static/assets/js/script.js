@@ -1,4 +1,4 @@
-// 定义一个常量animals:key是头像，value是全身像
+
 const animals = {
     '🐭': '🐁',
     '🐶': '🐕',
@@ -11,7 +11,7 @@ const animals = {
     '🐴': '🐎',
     '🐰': '🐇',
 }
-// 定义一个常量，存储dom元素引用的数据对象dom
+
 const dom = {
   wholeBody: document.querySelector(".whole-body"),
   bingo: document.querySelector(".bingo"),

@@ -1,7 +1,7 @@
 {% extends "layouts/admin-lte.html" %}
 
 <!-- Title -->
-{% block title %}Estudiantes{% endblock %}
+{% block title %}Periodos{% endblock %}
 
 <!-- Start Custom CSS Block -->
 {% block css_page %}
@@ -15,11 +15,11 @@
 <!-- End Custom CSS Block -->
 
 <!-- Page Title -->
-{% block page_title %}Estudiantes{% endblock %}
+{% block page_title %}Periodos{% endblock %}
 
 <!-- Navegation Page -->
 {% block page_navigation %}
-<li class="breadcrumb-item active">Estudiantes</li>
+<li class="breadcrumb-item active">Periodos</li>
 {% endblock %}
 
 <!-- Main Content -->
@@ -37,7 +37,7 @@
         {% endif %}
         <div class="row">
             <div class="col-12 d-flex my-3">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#student-modal" onclick="resetModal()">Agregar</button>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#period-modal" onclick="resetModal()">Agregar</button>
             </div>
             <div class="col-12">
                 <div class="card">
@@ -46,28 +46,23 @@
                         <table class="table table-hover text-nowrap">
                             <thead>
                                 <tr>
-                                    <th>Foto</th>
-                                    <th>Nombre</th>
-                                    <th>Apellido</th>
-                                    <th>Curso</th>
                                     <th>Periodo</th>
+                                    <th>Inicio</th>
+                                    <th>Fin</th>
                                     <th colspan="2">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for student in students %}
+                                {% for period in periods %}
                                 <tr>
-                                    <!-- /file/d5uxc1h-1ea4bf58-9207-4e1e-a370-6bba45b1d13f.png -->
-                                    <td><img class="student-image" src="/file/{{ student.photo }}" alt="..." style="border-radius: 30px; width:30px; height: 30px;"></td>
-                                    <td>{{ student.name }}</td>
-                                    <td>{{ student.lastname }}</td>
-                                    <td>{{ student.course.classroom }} {{ student.course.parallel }}</td>
-                                    <td>{{ student.period.name }}</td>
+                                    <td>{{ period.name }}</td>
+                                    <td>{{ period.start_at }}</td>
+                                    <td>{{ period.end_at }}</td>
                                     <td>
-                                        <button class="btn btn-secondary btn-sm" onclick="getStudent('{{ student._id }}')" data-toggle="modal" data-target="#student-modal">Editar</button>
+                                        <button class="btn btn-secondary btn-sm" onclick="getPeriod('{{ period._id }}')" data-toggle="modal" data-target="#period-modal">Editar</button>
                                     </td>
                                     <td>
-                                        <button class="btn btn-danger btn-sm" onclick="deleteStudent('{{ student._id }}')" data-toggle="modal" data-target="#delete-modal">Eliminar</button>
+                                        <button class="btn btn-danger btn-sm" onclick="deletePeriod('{{ period._id }}')" data-toggle="modal" data-target="#delete-modal">Eliminar</button>
                                     </td>
                                 </tr>
                                 {% endfor %}
@@ -85,45 +80,46 @@
 {% endblock %}
 
 <!-- Create Modal -->
-{% include "pages/administration/students/student-modal.html" %}
+{% include "pages/periods/period-modal.html" %}
 
 <!-- Delete Modal -->
-{% include "pages/administration/students/delete-modal.html" %}
+{% include "pages/periods/delete-modal.html" %}
 
 <!-- Start Custom JS Block -->
 {% block js_page %}
 <!-- Start Page JS -->
 <script>
-    const studentForm = $('#student-form');
-    const studentFormDelete = $('#delete-form');
+    const periodForm = $('#period-form');
+    const periodFormDelete = $('#delete-form');
 
-    function getStudent(id) {
-        studentForm.attr('action', '/students/update/' + id);
-        $('#student-modal-header').attr('class', 'modal-header bg-secondary');
-        $.get('/students/' + id, function(data) {
+    function getPeriod(id) {
+        periodForm.attr('action', '/periods/update/' + id);
+        $('#period-modal-header').attr('class', 'modal-header bg-secondary');
+        $.get('/periods/' + id, function(data) {
+            console.log(data);
             $('#name').val(data.name);
-            $('#lastname').val(data.lastname);
-            $('#course').val(data.course._id.$oid);
+            $('#start_at').val(data.start_at);
+            $('#end_at').val(data.end_at);
         });
     }
 
-    function deleteStudent(id) {
-        studentFormDelete.attr('action', '/students/delete/' + id)
+    function deletePeriod(id) {
+        periodFormDelete.attr('action', '/periods/delete/' + id)
     }
 
     function resetModal() {
-        $('#student-modal-header').attr('class', 'modal-header bg-primary');
+        $('#period-modal-header').attr('class', 'modal-header bg-primary');
         $('#name').val(null);
-        $('#lastname').val(null);
-        $('#course').val(null);
+        $('#start_at').val(null);
+        $('#end_at').val(null);
     }
 
     function resetFormAttributes() {
-        studentForm.attr('action', '/students');
+        periodForm.attr('action', '/periods');
     }
 
-    function resetstudent() {
-        studentFormDelete.attr('action', '#');
+    function resetperiod() {
+        periodFormDelete.attr('action', '#');
     }
 </script>
 <script src=""></script>

@@ -1,7 +1,7 @@
 {% extends "layouts/admin-lte.html" %}
 
 <!-- Title -->
-{% block title %}Materias{% endblock %}
+{% block title %}Horarios{% endblock %}
 
 <!-- Start Custom CSS Block -->
 {% block css_page %}
@@ -15,11 +15,11 @@
 <!-- End Custom CSS Block -->
 
 <!-- Page Title -->
-{% block page_title %}Materias{% endblock %}
+{% block page_title %}Horarios{% endblock %}
 
 <!-- Navegation Page -->
 {% block page_navigation %}
-<li class="breadcrumb-item active">Materias</li>
+<li class="breadcrumb-item active">Horarios</li>
 {% endblock %}
 
 <!-- Main Content -->
@@ -37,7 +37,7 @@
         {% endif %}
         <div class="row">
             <div class="col-12 d-flex my-3">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#matter-modal" onclick="resetModal()">Agregar</button>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#calendar-modal" onclick="resetModal()">Agregar</button>
             </div>
             <div class="col-12">
                 <div class="card">
@@ -46,21 +46,23 @@
                         <table class="table table-hover text-nowrap">
                             <thead>
                                 <tr>
-                                    <th>Materia</th>
-                                    <th>Aula</th>
+                                    <th>Horario</th>
+                                    <th>Inicio</th>
+                                    <th>Fin</th>
                                     <th colspan="2">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for matter in matters %}
+                                {% for calendar in calendars %}
                                 <tr>
-                                    <td>{{ matter.name }}</td>
-                                    <td>{{ matter.classroom.classroom }} {{ matter.classroom.parallel }}</td>
+                                    <td>{{ calendar.name }}</td>
+                                    <td>{{ calendar.start_at }}</td>
+                                    <td>{{ calendar.end_at }}</td>
                                     <td>
-                                        <button class="btn btn-secondary btn-sm" onclick="getMatter('{{ matter._id }}')" data-toggle="modal" data-target="#matter-modal">Editar</button>
+                                        <button class="btn btn-secondary btn-sm" onclick="getCalendar('{{ calendar._id }}')" data-toggle="modal" data-target="#calendar-modal">Editar</button>
                                     </td>
                                     <td>
-                                        <button class="btn btn-danger btn-sm" onclick="deleteMatter('{{ matter._id }}')" data-toggle="modal" data-target="#delete-modal">Eliminar</button>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteCalendar('{{ calendar._id }}')" data-toggle="modal" data-target="#delete-modal">Eliminar</button>
                                     </td>
                                 </tr>
                                 {% endfor %}
@@ -78,43 +80,46 @@
 {% endblock %}
 
 <!-- Create Modal -->
-{% include "pages/matters/matter-modal.html" %}
+{% include "pages/calendars/calendar-modal.html" %}
 
 <!-- Delete Modal -->
-{% include "pages/matters/delete-modal.html" %}
+{% include "pages/calendars/delete-modal.html" %}
 
 <!-- Start Custom JS Block -->
 {% block js_page %}
 <!-- Start Page JS -->
 <script>
-    const matterForm = $('#matter-form');
-    const matterFormDelete = $('#delete-form');
+    const calendarForm = $('#calendar-form');
+    const calendarFormDelete = $('#delete-form');
 
-    function getMatter(id) {
-        matterForm.attr('action', '/matters/update/' + id);
-        $('#matter-modal-header').attr('class', 'modal-header bg-secondary');
-        $.get('/matters/' + id, function(data) {
+    function getCalendar(id) {
+        calendarForm.attr('action', '/calendars/update/' + id);
+        $('#calendar-modal-header').attr('class', 'modal-header bg-secondary');
+        $.get('/calendars/' + id, function(data) {
+            console.log(data);
             $('#name').val(data.name);
-            $('#classroom').val(data.classroom._id.$oid);
+            $('#start_at').val(data.start_at);
+            $('#end_at').val(data.end_at);
         });
     }
 
-    function deleteMatter(id) {
-        matterFormDelete.attr('action', '/matters/delete/' + id)
+    function deleteCalendar(id) {
+        calendarFormDelete.attr('action', '/calendars/delete/' + id)
     }
 
     function resetModal() {
-        $('#matter-modal-header').attr('class', 'modal-header bg-primary');
+        $('#calendar-modal-header').attr('class', 'modal-header bg-primary');
         $('#name').val(null);
-        $('#classroom').val(null);
+        $('#start_at').val(null);
+        $('#end_at').val(null);
     }
 
     function resetFormAttributes() {
-        matterForm.attr('action', '/matters');
+        calendarForm.attr('action', '/calendars');
     }
 
-    function resetMatter() {
-        matterFormDelete.attr('action', '#');
+    function resetcalendar() {
+        calendarFormDelete.attr('action', '#');
     }
 </script>
 <script src=""></script>

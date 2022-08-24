@@ -4,8 +4,9 @@ from app import *
 @app.route('/classrooms', methods=['GET'])
 def classroomsIndex():
     classrooms = mongo.db.classrooms.find()
+    calendars = mongo.db.calendars.find()
     teachers = mongo.db.users.find({'role.role': 'teacher' })
-    return render_template('pages/classrooms/index.html', classrooms = classrooms, teachers = teachers)
+    return render_template('pages/classrooms/index.html', classrooms = classrooms, teachers = teachers, calendars = calendars)
 
 # Show classrooms
 @app.route('/classrooms/<id>', methods=['GET'])
@@ -21,13 +22,15 @@ def classroomsStore():
     parallel = request.form['parallel']
     capacity = request.form['capacity']
     tutor = mongo.db.users.find_one({'_id': ObjectId(request.form['tutor']) })
+    calendar = mongo.db.calendars.find_one({'_id': ObjectId(request.form['calendar']) })
 
     if classroom and parallel and capacity:
         mongo.db.classrooms.insert_one({
             'classroom': classroom,
             'parallel': parallel,
             'capacity': capacity,
-            'tutor': tutor
+            'tutor': tutor,
+            'calendar': calendar
         })
 
     return redirect(url_for("classroomsIndex"))

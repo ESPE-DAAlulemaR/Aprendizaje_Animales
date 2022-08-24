@@ -50,6 +50,7 @@
                                     <th>Paralelo</th>
                                     <th>Capacidad</th>
                                     <th>Tutor</th>
+                                    <th>Horario</th>
                                     <th colspan="2">Acciones</th>
                                 </tr>
                             </thead>
@@ -58,8 +59,9 @@
                                 <tr>
                                     <td>{{ classroom.classroom }}</td>
                                     <td>{{ classroom.parallel }}</td>
-                                    <td>{{ classroom.capacity }}</td>
+                                    <td>{{ classroom.capacity }} (Estudiantes)</td>
                                     <td>{{ classroom.tutor.name }} {{ classroom.tutor.lastname }}</td>
+                                    <td>{{ classroom.calendar.name }}</td>
                                     <td>
                                         <button class="btn btn-secondary btn-sm" onclick="getClassroom('{{ classroom._id }}')" data-toggle="modal" data-target="#classroom-modal">Editar</button>
                                     </td>
