@@ -33,7 +33,8 @@ def usersStore():
             'username': username,
             'email': email,
             'password': hashed_password,
-            'role': role
+            'role': role,
+            'active': True,
         })
 
     return redirect(url_for("usersIndex"))
@@ -62,7 +63,8 @@ def usersUpdate(_id):
                 'username': username,
                 'email': email,
                 'password': hashed_password,
-                'role': role
+                'role': role,
+                'active': user['active'],
             }
         })
     return redirect(url_for("usersIndex"))
@@ -71,4 +73,26 @@ def usersUpdate(_id):
 @app.route('/users/delete/<id>', methods=['POST'])
 def usersDestroy(id):
     mongo.db.users.delete_one({'_id': ObjectId(id)})
+    return redirect(url_for("usersIndex"))
+
+# Disable user
+@app.route('/users/disable/<_id>', methods=['POST'])
+def usersDisable(_id):
+    if _id:
+        mongo.db.users.update_one({'_id': ObjectId(_id['$oid']) if '$oid' in _id else ObjectId(_id)},
+            {'$set': {
+                'active': False,
+            }
+        })
+    return redirect(url_for("usersIndex"))
+
+# Enable user
+@app.route('/users/enable/<_id>', methods=['GET'])
+def usersEnable(_id):
+    if _id:
+        mongo.db.users.update_one({'_id': ObjectId(_id['$oid']) if '$oid' in _id else ObjectId(_id)},
+            {'$set': {
+                'active': True,
+            }
+        })
     return redirect(url_for("usersIndex"))

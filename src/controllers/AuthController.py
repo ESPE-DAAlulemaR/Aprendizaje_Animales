@@ -15,11 +15,15 @@ def login():
         user = mongo.db.users.find_one({'email': email})
 
         if user:
-            if check_password_hash(user['password'], password):
-                session["user"] = json.loads(json_util.dumps(user))
-                return redirect(url_for('index'))
+            if user['active']:
+                if check_password_hash(user['password'], password):
+                    session["user"] = json.loads(json_util.dumps(user))
+                    return redirect(url_for('index'))
+                else:
+                    message = 'Contraseña incorrecta'
+                    return render_template('login.html', message = message)
             else:
-                message = 'Contraseña incorrecta'
+                message = 'Usuario inactivo'
                 return render_template('login.html', message = message)
         else:
             message = 'Usuario no registrado'

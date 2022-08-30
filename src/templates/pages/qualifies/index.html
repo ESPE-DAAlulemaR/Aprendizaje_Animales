@@ -68,8 +68,12 @@
                                     {% if session['user']['role']['role'] == 'admin' %}
                                         <td>{{ qualify.user.username }}</td>
                                     {% endif %}
-                                    <td>{{ qualify.note }}</td>
-                                    <td>{{ qualify.comments }}</td>
+                                    <td><b class="mr-3">{{ qualify.note }}</b> Estrellas</td>
+                                    {% if qualify.comments %}
+                                        <td>{{ qualify.comments }}</td>
+                                    {% else %}
+                                        <td>Sin comentarios</td>
+                                    {% endif %}
                                     <td>
                                         <button class="btn btn-secondary btn-sm" onclick="getQualify('{{ qualify._id }}')" data-toggle="modal" data-target="#qualify-modal">Editar</button>
                                     </td>

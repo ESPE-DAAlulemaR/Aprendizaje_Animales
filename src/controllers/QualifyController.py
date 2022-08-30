@@ -24,7 +24,7 @@ def qualifiesStore():
     note = request.form['note']
     comments = request.form['comments']
 
-    if note and comments:
+    if note:
         mongo.db.qualifies.insert_one({
             'note': note,
             'comments': comments,
