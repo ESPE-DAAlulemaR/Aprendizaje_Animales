@@ -1,0 +1,33 @@
+[{
+  "_id": {
+    "$oid": "630644fe0f2a8c9e0e332d56"
+  },
+  "name": "UFA",
+  "lastname": "ESPE",
+  "username": "ESPE_Admin",
+  "email": "admin@espe.edu.ec",
+  "password": "pbkdf2:sha256:260000$KvLa5kALPyNdI9eP$d4a87e406ee9956a68baada5752a90968bbe7a363b140975aee509fcc12c6ed5",
+  "role": {
+    "_id": {
+      "$oid": "630644ad0f2a8c9e0e332d52"
+    },
+    "role": "admin",
+    "alias": "Administrador"
+  }
+},{
+  "_id": {
+    "$oid": "6306bf6689e07502c14122b2"
+  },
+  "name": "JOHANA MARGOTH",
+  "lastname": "SALAZAR CALO",
+  "username": "jmsalazar13",
+  "email": "jmsalazar13@espe.edu.ec",
+  "password": "pbkdf2:sha256:260000$NyQ5C9eZFqRSEou4$7c2d5ddef066b1730f1dedcb9950f7ad703b4b559273f6f1011350e8f5f3c099",
+  "role": {
+    "_id": {
+      "$oid": "630644ad0f2a8c9e0e332d52"
+    },
+    "role": "admin",
+    "alias": "Administrador"
+  }
+}]

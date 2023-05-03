@@ -1,0 +1,19 @@
+[{
+  "_id": {
+    "$oid": "630644ad0f2a8c9e0e332d52"
+  },
+  "role": "admin",
+  "alias": "Administrador"
+},{
+  "_id": {
+    "$oid": "630644b60f2a8c9e0e332d53"
+  },
+  "role": "teacher",
+  "alias": "Docente"
+},{
+  "_id": {
+    "$oid": "630644c30f2a8c9e0e332d54"
+  },
+  "role": "student",
+  "alias": "Estudiante"
+}]
